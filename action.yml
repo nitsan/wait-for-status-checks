@@ -1,4 +1,4 @@
-name: 'wait for checks'
+name: 'wait-for-gh-checks'
 description: 'Wait for GitHub Status Checks'
 author: 'nitsan'
 branding:
