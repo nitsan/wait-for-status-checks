@@ -18,6 +18,7 @@ async function run(): Promise<void> {
       .map(check => check.trim())
     ignore.push(context.job)
 
+    const checks = core.getInput('checks') || undefined
     const matchPattern = core.getInput('match_pattern') || undefined
     const ignorePattern = core.getInput('ignore_pattern') || undefined
 
@@ -31,6 +32,7 @@ async function run(): Promise<void> {
       ref: pickSHA(context),
       ignoreChecks: ignore,
 
+      checks,
       matchPattern,
       ignorePattern,
 

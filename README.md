@@ -62,6 +62,7 @@ The action knows to exclude its own check run (i.e. the GitHub Actions job that 
 | interval         | 10s                         | 10s     | Interval in seconds to poll GitHub Check runs                    |
 | timeout          | 300s                        | 3600s   | Timeout in seconds to poll GitHub Check runs                     |
 | delay            | 5s                          | 0s      | Period in seconds to wait before first poll of GitHub Check Runs |
+| checks           | lint,unit-test              |         | Github check array that should be watched                        |
 | match_pattern    | prod.*                      |         | Regex match GitHub checks that should be watched                 |
 | ignore_pattern   | lint.*                      |         | Regex match GitHub checks that should be ignored                 |
 | ignore           | foo,bar                     |         | GitHub checks that should be ignored                             |

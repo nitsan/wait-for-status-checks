@@ -55,6 +55,7 @@ function run() {
                 .split(',')
                 .map(check => check.trim());
             ignore.push(context.job);
+            const checks = core.getInput('checks') || undefined;
             const matchPattern = core.getInput('match_pattern') || undefined;
             const ignorePattern = core.getInput('ignore_pattern') || undefined;
             const delaySeconds = parseInt(core.getInput('delay') || '0');
@@ -65,6 +66,7 @@ function run() {
                 repo: context.repo.repo,
                 ref: pickSHA(context),
                 ignoreChecks: ignore,
+                checks,
                 matchPattern,
                 ignorePattern,
                 // optional
@@ -134,12 +136,15 @@ const core = __importStar(__nccwpck_require__(2186));
 const wait_1 = __nccwpck_require__(5817);
 function poll(config) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { client, owner, repo, ref, intervalSeconds, timeoutSeconds, ignoreChecks, matchPattern, ignorePattern } = config;
+        const { client, owner, repo, ref, intervalSeconds, timeoutSeconds, ignoreChecks, checks, matchPattern, ignorePattern } = config;
         let elapsedSeconds = 0;
         core.info('Starting polling GitHub Check runs...');
         core.info(`timeout: ${timeoutSeconds} seconds`);
         core.info(`interval: ${intervalSeconds} seconds`);
         core.info(`ignore: ${JSON.stringify(ignoreChecks)}`);
+        if (checks) {
+            core.info(`checks: ${checks}`);
+        }
         if (matchPattern) {
             core.info(`match pattern: ${matchPattern}`);
         }

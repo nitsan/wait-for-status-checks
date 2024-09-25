@@ -16,6 +16,7 @@ export interface Config {
   // ignore
   ignoreChecks: string[]
 
+  checks?: string
   matchPattern?: string
   ignorePattern?: string
 }
@@ -29,6 +30,7 @@ export async function poll(config: Config): Promise<void> {
     intervalSeconds,
     timeoutSeconds,
     ignoreChecks,
+    checks,
     matchPattern,
     ignorePattern
   } = config
@@ -39,6 +41,9 @@ export async function poll(config: Config): Promise<void> {
   core.info(`interval: ${intervalSeconds} seconds`)
   core.info(`ignore: ${JSON.stringify(ignoreChecks)}`)
 
+  if (checks) {
+    core.info(`checks: ${checks}`)
+  }
   if (matchPattern) {
     core.info(`match pattern: ${matchPattern}`)
   }
