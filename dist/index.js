@@ -189,6 +189,23 @@ function poll(config) {
                     const pattern = new RegExp(ignorePattern);
                     check_runs = check_runs.filter(run => !pattern.test(run.name));
                 }
+                // filter by check names
+                if (checks) {
+                    core.debug(`Filtering check runs by check names: ${checks}`);
+                    const checksArray = checks.split(',');
+                    const checksToCheck = [];
+                    for (const check of checksArray) {
+                        const currentCheck = check_runs.find(run => run.name === check);
+                        if (!currentCheck) {
+                            core.setFailed(`Check run "${check}" not found`);
+                            return;
+                        }
+                        else {
+                            checksToCheck.push(currentCheck);
+                        }
+                    }
+                    check_runs = checksToCheck;
+                }
                 core.info(`Parse ${check_runs.length} check runs`);
                 for (const run of check_runs) {
                     core.debug(`> check run "${run.name}" is "${run.status}" with conclusion "${run.conclusion}"`);
